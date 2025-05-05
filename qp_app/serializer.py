@@ -1,5 +1,5 @@
 from rest_framework import serializers 
-from .models import ExpenseModel, Product, Category, Company, Role
+from .models import ExpenseModel, Product, Category, Company, Role, PaymentType
 from django.contrib.auth.models import User
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
@@ -45,4 +45,9 @@ class CompanySerializer(serializers.ModelSerializer):
 class RoleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Role
+        fields = ['id', 'name']
+
+class PaymentTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PaymentType
         fields = ['id', 'name']
