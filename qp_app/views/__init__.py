@@ -6,3 +6,4 @@ from .category import get_categories, create_category, delete_category, edit_cat
 from .company import get_companies, create_company, delete_company, edit_company
 from .roles import get_roles, edit_role, delete_role, create_role
 from .paymentType import get_payment_types, create_payment_type, edit_payment_type, delete_payment_type
+from .customers import get_customers

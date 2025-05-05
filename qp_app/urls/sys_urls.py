@@ -1,5 +1,22 @@
 from django.urls import path
-from qp_app.views import get_ExpenseAdded, get_products, create_product, get_categories, create_category, delete_category,get_companies, create_company, delete_company, edit_company, edit_category, create_role, edit_role, delete_role, get_roles, get_payment_types, create_payment_type, delete_payment_type, edit_payment_type
+from qp_app.views import (
+    # Expense 
+    get_ExpenseAdded,
+    # Product 
+    get_products, create_product,
+    # Category 
+    get_categories, create_category, edit_category, delete_category,
+    # Company 
+    get_companies, create_company, edit_company, delete_company,
+    # Role 
+    get_roles, create_role, edit_role, delete_role,
+    # Payment type 
+    get_payment_types, create_payment_type, edit_payment_type, delete_payment_type,
+    #Customer
+    get_customers
+)
+
+
 
 urlpatterns = [
     path('expenses/', get_ExpenseAdded),
@@ -29,5 +46,8 @@ urlpatterns = [
     path('create_payment_type/', create_payment_type),
     path('delete_payment_type/', delete_payment_type),
     path('edit_payment_type/', edit_payment_type),
+    
+    #Customers
+    path('get_customers/', get_customers),
     
 ]
