@@ -4,6 +4,12 @@ from .product import Product
 from datetime import date
 
 class Overdue(models.Model):
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('overdue', 'Overdue'),
+        ('paid', 'Paid'),
+    ]
+
     customer_id = models.ForeignKey(Customer, on_delete=models.CASCADE)
     product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
     date = models.DateField(default=date.today)
@@ -11,4 +17,5 @@ class Overdue(models.Model):
     total_paid = models.DecimalField(max_digits=5, decimal_places=2)
     installment_amount = models.DecimalField(max_digits=5, decimal_places=2)
     days_past_due = models.IntegerField(default=0)
-    status = models.CharField()
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
+
