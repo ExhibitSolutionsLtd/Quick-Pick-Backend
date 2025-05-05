@@ -54,6 +54,6 @@ def edit_category(request):
         category = Category.objects.get(id=category_id)
         category.name = new_name
         category.save()
-        return Response({"message":"Category updated successfully"})
+        return Response({"message":"Category updated successfully", "company": {"id": category.id, "name": category.name}})
     except Category.DoesNotExist:
         return Response({"error":"Category not found"}, status=404)

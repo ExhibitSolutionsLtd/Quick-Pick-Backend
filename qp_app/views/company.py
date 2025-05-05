@@ -37,3 +37,24 @@ def delete_company(request):
     
     except Company.DoesNotExist:
         return Response({"error": "Company not found"}, status=404)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def edit_company(request):
+    company_id = request.data.get('id')
+    new_name = request.data.get('name')  
+    
+    if not company_id:
+        return Response({"error": "Company ID required"}, status=400)
+    if not new_name:
+        return Response({"error": "Name field required"}, status=400)
+    
+    try:
+        company = Company.objects.get(id=company_id)
+        company.name = new_name
+        company.save()
+        return Response({"message": "Company updated successfully", "company": {"id": company.id, "name": company.name}})
+    
+    except Company.DoesNotExist:
+        return Response({"error": "Company not found"}, status=404)
