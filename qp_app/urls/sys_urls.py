@@ -13,7 +13,7 @@ from qp_app.views import (
     # Payment type 
     get_payment_types, create_payment_type, edit_payment_type, delete_payment_type,
     #Customer
-    get_customers, create_customer, delete_customer
+    get_customers, create_customer, delete_customer, edit_customer
 )
 
 
@@ -51,4 +51,9 @@ urlpatterns = [
     path('get_customers/', get_customers),
     path('create_customer/', create_customer),
     path('delete_customer/', delete_customer),
+    path('edit_customer/', edit_customer),
 ]
+
+
+
+

@@ -50,25 +50,14 @@ def edit_customer(request):
         customer = Customer.objects.get(id=customer_id)
     except Customer.DoesNotExist:
         return Response({'error': 'Customer not found.'}, status=400)
+    
+    serializer = CustomerSerializer(customer, data = request.data, partial=True)
+    if serializer.is_valid():
 
-    full_name = request.data.get('full_name')
-    phone_number = request.data.get('phone_number')
-    total_purchases = request.data.get('total_purchases')
-
-    if full_name:
-        customer.full_name = full_name
-    if phone_number:
-        if Customer.objects.exclude(id=customer_id).filter(phone_number=phone_number).exists():
-            return Response({'error': 'Phone number already in use by another customer.'}, status=400)
-        customer.phone_number = phone_number
-    if total_purchases is not None:
-        try:
-            customer.total_purchases = int(total_purchases)
-        except ValueError:
-            return Response({'error': 'Total purchases must be an integer.'}, status=400)
-
-    customer.save()
-    return Response({'message': 'Customer updated successfully.'}, status=200)
-
-
-
+        phone_number = serializer.validated_data.get('phone_number')
+        if phone_number and Customer.objects.exclude(id=customer_id).filter(phone_number=phone_number).exists():
+            return Response({'error':'Phone number already in use by another Customer'}, status=400)
+        
+        serializer.save()
+        return Response({'message':'Customer updated successfully'}, status=200)
+    return Response(serializer.errors, status=400)
